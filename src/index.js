@@ -8,8 +8,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 	new Slider('#slides1').slide();
-	new Slider('#slides2').slide(3).noloop();
-
+	new Slider('#slides2').slide(2);
 
 	
 });

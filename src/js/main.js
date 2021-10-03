@@ -90,10 +90,10 @@ export class Slider {
     }
     this.sliderItems.style.left = (this.sliderItems.offsetLeft - this.posX2) + "px";
 
-		if (!this.infinite && (this.posInitial - this.posX2) >= 0) {
+		if (!this.infinite && this.sliderItems.offsetLeft - this.posX2 >= 0) {
 			this.sliderItems.style.left = "0px";
-		} else if(!this.infinite && (this.posInitial - this.posX2) < (this.slideSize*this.number - this.sliderItems.offsetWidth)) { 
-			this.sliderItems.style.left = this.slideSize*this.number - this.sliderItems.offsetWidth + "px";
+		} else if (!this.infinite && -this.sliderItems.offsetLeft + this.posX2 > this.sliderItems.offsetWidth - this.number * this.slideSize) {
+			this.sliderItems.style.left = this.slideSize * this.number - this.sliderItems.offsetWidth + "px";
 		}
 	}
   
@@ -118,40 +118,31 @@ export class Slider {
 		let slidesDragged = Math.round((this.posInitial - this.posFinal) / this.slideSize);
 		if (!action) { slidesDragged = dir === 1 ? 1 : -1 }
 
-		if (this.number > 1 && dir == 1) {				
+		if (dir == 1) {				
 			if (slidesDragged >= this.number) {
-				this.sliderItems.style.left = (this.posInitial - this.slideSize * (this.number - 1)) + "px";
-				this.index += this.number - 1; 
+				this.sliderItems.style.left = (this.posInitial - this.slideSize * (this.number)) + "px";
+				this.index = this.index + this.number;
 			} else if (slidesDragged < this.number){
 				this.sliderItems.style.left = (this.posInitial - this.slideSize * slidesDragged) + "px";
 				this.index += slidesDragged; 
-			}   
-		} else if (this.number > 1 && dir == -1) {
+			} else if (!this.infinite && this.posInitial <= this.slideSize*this.number - this.sliderItems.offsetWidth) {
+				this.sliderItems.style.left = this.posInitial + "px";
+				this.index = this.slidesLength - 1; 
+			}
+		} else if (dir == -1) {
 			if (-slidesDragged >= this.number) {
-				this.sliderItems.style.left = (this.posInitial + this.slideSize * (this.number - 1)) + "px";
-				this.index += -this.number; 
+				this.sliderItems.style.left = (this.posInitial + this.slideSize * (this.number)) + "px";
+				this.index = this.index - this.number; 
 			} else if (-slidesDragged < this.number){
 				this.sliderItems.style.left = (this.posInitial + this.slideSize * -slidesDragged) + "px";
 				this.index = this.index - (-slidesDragged);  
-			} 
+			} else if (!this.infinite && this.posInitial > -this.slideSize) { 
+				this.sliderItems.style.left = "0px";
+				this.index = 0;   
+			}
 		}
 
-		if (this.number === 1 && dir == 1) {
-			this.sliderItems.style.left = (this.posInitial - this.slideSize) + "px";
-			this.index++;
-		} else if (this.number === 1 && dir == -1) {
-			this.sliderItems.style.left = (this.posInitial + this.slideSize) + "px";
-			this.index--;  
-		}
-
-		if (!this.infinite && dir == 1 && this.posInitial <= this.slideSize*this.number - this.sliderItems.offsetWidth) {
-			this.sliderItems.style.left = this.posInitial + "px";
-			this.index = this.slidesLength - 1;    
-		} else if (!this.infinite && dir == -1 && this.posInitial > -this.slideSize) { 
-			this.sliderItems.style.left = "0px";
-			this.index = 0;   
-		}
-
+		this.hideArrows();
 		this.sliderSelect.selectedIndex = 0;
   }
     
@@ -176,7 +167,6 @@ export class Slider {
 				this.index = 0;				
 		}
 
-		this.allowShift = true;
 		this.dotsShift(this.index/this.number)
 		this.hideArrows()
   }

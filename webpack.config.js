@@ -20,7 +20,6 @@ module.exports = {
         }),
 		new CopyPlugin({
 			patterns: [
-			  { from: path.resolve(__dirname, 'src', 'images'), to: 'images' },
 			  { from: path.resolve(__dirname, 'src', 'icons'), to: 'icons' },
 			],
 		}),

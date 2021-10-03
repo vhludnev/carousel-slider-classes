@@ -1,16 +1,16 @@
-# Vanilla JS Carousel Slideshow
+# Vanilla Javascript Carousel Slideshow
 
 ## Key Features
 
-* Works for mobile and desktop devices
-* Supports swipes (mobile versions)
-* Works for any HTML content (just replace **img** tag in **class="gallery"** for any other)
-* Animated, finger-following swipes
+* Works on mobile and desktop devices
+* Works for any HTML content
+* Supports swipes
 * Supports multiple slides on the screen
-* Supports infinite option (for a single-slide-on-a-screen option)
+* Supports infinite loop
 * Supports scrolling to a selected slide
+* Supports auto scroll
 
-[Check demo](https://carousel-webpack.netlify.app/)
+[Check demo](https://carousel-classes.netlify.app/)
 
 ## How To Use
 
@@ -18,7 +18,7 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 
 1. Clone this repository
    	```sh
-	git clone https://github.com/vhludnev/carousel-slider-webpack.git
+	git clone https://github.com/vhludnev/carousel-slider-classes.git
 	```
 
 2. Go into the repository
@@ -36,26 +36,28 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 	npm start
 	```
 
-5. In index.html file paste your list of slides (your slider id and attribute [data-carousel] are required in the wrapper)
+5. In index.html file paste your list of slides (your slider **id** and attribute **[data-carousel]** are required in the wrapper)
 
-6. Activate your carousel slider by adding "new Slider('#YOURID').slide()" to index.js file;
+6. Activate your carousel slider by adding "new Slider('#YourSliderID').slide()" to index.js file;
 
+\
 Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
+\
+
+### Options and examples:
+
+| Methods			| Required/optional 	| Default values  	| Notes
+| :---        		|    :----:   		|  	:----:		|	:---  
+| slides()      	| Required       	| 1  			| Number of slides to show
+| noloop()   		| Optional        	| n/a			| No infinite loop
+| auto()   		| Optional        	| 2000, 'right' 	| Auto scroll (in ms, direction)
 
 
-Options and examples:
+**Examples:**
 
-| Name						| Required/optional | Default values  | Aplication
-| :---        		|    :----:   			|  	:----:				|	:---  
-| slides()      	| Required       		| 1  							| new Slider('#slidesID').slide()
-| noloop()   			| Optional        	| n/a			      	| new Slider('#slidesID').slide().noloop();
-| auto()   				| Optional        	| 2000, 'right' 	|	new Slider('#slidesID').slide().auto();
-
-Examples: 
-
-new Slider('#slidesID').slide(); -> one slide on a screen, infinite loop
-new Slider('#slidesID').slide(2).noloop(); -> two slides on a screen, **no** infinite loop
-new Slider('#slidesID').slide().auto() -> one slide on a screen, infinite loop with auto scroll to the right every 2 seconds
-new Slider('#slidesID').slide(3).auto(1000, 'left') -> three slides on a screen, infinite loop with auto scroll to the left every second
+1) new Slider('#YourSlidesID').slide() --> one slide on a screen, infinite loop
+2) new Slider('#YourSlidesID').slide(2).noloop() --> two slides on a screen, without infinite loop
+3) new Slider('#YourSlidesID').slide().auto() --> one slide on a screen, infinite loop with auto scroll to the right every 2 seconds
+4) new Slider('#YourSlidesID').slide(3).auto(1000, 'left') --> three slides on a screen, infinite loop with auto scroll to the left every second
 
 Enjoy!
